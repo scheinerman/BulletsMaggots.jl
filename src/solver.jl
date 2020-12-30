@@ -13,6 +13,11 @@ function history_check(history::Dict{Int,Tuple{Int,Int}}, g::Int)::Bool
     return true
 end
 
+function history_count(history::Dict{Int,Tuple{Int,Int}})::Int
+    length([c for c in 0:9999 if history_check(history, c)])
+end
+
+
 
 """
 `bm_solver(c::Int, verbose::Bool=true)` playes Bullets and Maggots to try 
@@ -36,10 +41,19 @@ function bm_solver(c::Int, verbose::Bool = true)::Int
             continue
         end
         steps += 1
-        if verbose
-            println(steps, "\t", string4(g), "\t", cnt)
-        end
         history[g] = cnt
+
+        if verbose
+            println(
+                "Guess $steps:\t",
+                string4(g),
+                "\t",
+                cnt,
+                "\t⟹\t search space size is now ",
+                history_count(history),
+            )
+        end
+
         if cnt == (4, 0)
             if verbose
                 println("Solved! Code is $(string4(g))")

@@ -1,8 +1,10 @@
 module BulletsMaggots
-using Random
+using Random, ProgressMeter
 
 
 include("tools.jl")
 include("solver.jl")
+include("build_table.jl")
+
 
 end # module

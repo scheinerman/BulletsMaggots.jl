@@ -20,31 +20,49 @@ This module's primary function is `bm_solver`. The input to this function is the
 ```
 julia> bm_solver(3420)
 Trying to find secret code 3420
-1       1526    (1, 0)
-2       1047    (0, 2)
-3       0766    (0, 1)
-4       8420    (3, 0)
-5       4420    (3, 0)
-6       2420    (3, 0)
-7       3420    (4, 0)
+Guess 1:        0851    (0, 1)  ⟹        search space size is now 3048
+Guess 2:        8486    (1, 0)  ⟹        search space size is now 494
+Guess 3:        4475    (1, 0)  ⟹        search space size is now 74
+Guess 4:        1376    (0, 1)  ⟹        search space size is now 15
+Guess 5:        9430    (2, 1)  ⟹        search space size is now 2
+Guess 6:        3420    (4, 0)  ⟹        search space size is now 1
 Solved! Code is 3420
-7
+6
 
 julia> bm_solver(55)
 Trying to find secret code 0055
-1       7119    (0, 0)
-2       8640    (0, 1)
-3       5256    (1, 1)
-4       5022    (1, 1)
-5       3852    (1, 0)
-6       0055    (4, 0)
+Guess 1:        0810    (1, 1)  ⟹        search space size is now 1030
+Guess 2:        1852    (1, 0)  ⟹        search space size is now 97
+Guess 3:        6808    (0, 1)  ⟹        search space size is now 40
+Guess 4:        1470    (0, 1)  ⟹        search space size is now 6
+Guess 5:        0055    (4, 0)  ⟹        search space size is now 1
 Solved! Code is 0055
-6
+5
 ```
 
 ## Method
 
 The solver's algorithm works as follows. There are 10,000 possible codes (from 0000 to 9999). The solver shuffles these and queries the code maker for the first guess on the list. The information returned is saved. From here, the solver scans down the list of guesses stopping when if finds a guess that is consistent with all the responses from the code maker, and then guesses that code. The response is saved and, if the guess is not the true code, the process continues until the correct code is found.
+
+## Speeding Up
+
+The function `bm_count` is used calculate the number of bullets and maggots for a pair of code numbers. It is reasonably speedy for casual use, but it can be made much faster by first precomputing all possible values of `bm_count` and saving them in a look-up table. Invoking the function `build_table` builds the look-up table and from that point on, `bm_count` uses the table instead of computing the number of bullets and maggots at each invocation.
+```julia
+julia> using BenchmarkTools
+
+julia> @btime bm_count(1212, 2132)
+  234.745 ns (5 allocations: 448 bytes)
+(1, 2)
+
+julia> build_table()
+[ Info: Building lookup table
+Progress: 100%|███████████████████████████████████████| Time: 0:00:25
+
+julia> @btime bm_count(1212, 2132)
+  56.942 ns (2 allocations: 64 bytes)
+(1, 2)
+```
+
 
 ## Experiment
 
