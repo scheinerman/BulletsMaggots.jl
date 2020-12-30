@@ -1,4 +1,4 @@
-export bm_count
+export bm_count, string4
 
 """
 `code_check(c::Int)` checks that `c` is a valid code
