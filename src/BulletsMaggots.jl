@@ -1,5 +1,9 @@
+using Random
+
 module BulletsMaggots
 
-greet() = print("Hello World!")
+
+include("tools.jl")
+
 
 end # module
