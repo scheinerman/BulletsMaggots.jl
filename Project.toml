@@ -1,7 +1,7 @@
 name = "BulletsMaggots"
 uuid = "5750bfad-98dc-4250-83e6-c97d76c5dcbe"
 authors = ["Ed Scheinerman <ers@jhu.edu>"]
-version = "0.1.0"
+version = "0.0.1"
 
 [deps]
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
