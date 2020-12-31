@@ -1,5 +1,11 @@
 # Bullets and Maggots
 
+
+
+
+[![Build Status](https://travis-ci.com/scheinerman/BulletsMaggots.jl.svg?branch=master)](https://travis-ci.com/scheinerman/BulletsMaggots.jl)
+
+
 ## The Game
 
 *Bullets and Maggots* is a guessing game that is a number version of 
