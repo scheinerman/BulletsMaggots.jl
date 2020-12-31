@@ -35,8 +35,8 @@ when comparing the codes `c` and `d`; this is returned as a
 tuple `(b,m)`.
 """
 @inline function bm_count(c::Int, d::Int)::Tuple{Int,Int}
-    if length(bm_table) > 1000
-        return fast_bm_count(c, d)
+    if bm_flag 
+        return bm_table_fetch(c,d)
     else
         return slow_bm_count(c, d)
     end
