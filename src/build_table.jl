@@ -1,13 +1,14 @@
 export build_table
 
 
-bm_table = Matrix{Tuple{Int,Int}}(undef, 10_000, 10_000)
+bm_table = Matrix{Tuple{Int,Int}}(undef, 2, 2)
 
 """
 `build_table()` creates a lookup table for `fast_bm_count()`
 """
 function build_table()
     @info "Building lookup table"
+    global bm_table = Matrix{Tuple{Int,Int}}(undef, 10_000, 10_000)
     PM = Progress(10_000)
     for a = 0:9999
         for b = a:9999
