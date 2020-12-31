@@ -8,7 +8,7 @@
 
 *Bullets and Maggots* is a guessing game that is a number version of 
 [Mastermind](https://en.wikipedia.org/wiki/Mastermind_(board_game)). (This game is also known as
-[*Bulls and Cows*](https://en.wikipedia.org/wiki/Bulls_and_Cows) but that's not my friends and I called it back in the day.)
+[*Bulls and Cows*](https://en.wikipedia.org/wiki/Bulls_and_Cows) but that's not what my friends and I called it back in the day.)
 
 One player, the code maker, thinks of a four digit number. The other player, the code breaker, tries to guess the number. Each time the code breaker makes a guess, the code maker reports two results:
 * The number of digits in the guess that match the corresponding digits in the secret code; these are called *bullets* (black pegs in Mastermind). 
