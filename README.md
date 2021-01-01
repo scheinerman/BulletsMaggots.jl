@@ -45,6 +45,17 @@ Solved! Code is 0055
 5
 ```
 
+## Play
+
+### Play as code breaker
+
+The function `play_breaker()` allows interactive play of the game in which the user 
+is the code breaker. Enter a negative number to force the game to end and have the
+code revealed.
+
+
+### Play as code maker
+
 ## Method
 
 The solver's algorithm works as follows. There are 10,000 possible codes (from 0000 to 9999). The solver shuffles these and queries the code maker for the first guess on the list. The information returned is saved. From here, the solver scans down the list of guesses stopping when if finds a guess that is consistent with all the responses from the code maker, and then guesses that code. The response is saved and, if the guess is not the true code, the process continues until the correct code is found.
