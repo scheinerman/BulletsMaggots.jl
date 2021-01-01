@@ -1,7 +1,7 @@
 # Bullets and Maggots
 
 
-[![Build Status](https://travis-ci.com/scheinerman/BulletsMaggots.jl.svg?branch=master)](https://travis-ci.com/scheinerman/BulletsMaggots.jl)
+[![Build Status](https://travis-ci.com/scheinerman/BulletsMaggots.jl.svg?branch=main)](https://travis-ci.com/scheinerman/BulletsMaggots.jl)
 
 
 ## The Game
