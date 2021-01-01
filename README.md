@@ -56,6 +56,72 @@ code revealed.
 
 ### Play as code maker
 
+The function `play_maker()` allows interacive play of the game in which 
+the computer is the code breaker. In this example the user's code is `1234`:
+```
+julia> play_maker()
+I guess the code is 4408
+Enter the number of bullets: 0
+Enter the number of maggots: 1
+
+I guess the code is 0966
+Enter the number of bullets: 0
+Enter the number of maggots: 0
+
+I guess the code is 8252
+Enter the number of bullets: 1
+Enter the number of maggots: 0
+
+I guess the code is 7247
+Enter the number of bullets: 1
+Enter the number of maggots: 1
+
+I guess the code is 7154
+Enter the number of bullets: 1
+Enter the number of maggots: 1
+
+I guess the code is 1234
+Enter the number of bullets: 4
+Enter the number of maggots: 0
+
+Solved in 6 steps
+```
+
+
+
+If the user gives incorrect information, this 
+will be revealed. Here we illustrate with the code `1234`.
+
+
+```
+julia> play_maker()
+I guess the code is 7147
+Enter the number of bullets: 0
+Enter the number of maggots: 2
+
+I guess the code is 4881
+Enter the number of bullets: 0
+Enter the number of maggots: 2
+
+I guess the code is 1496
+Enter the number of bullets: 0   # this is wrong; should be 1
+Enter the number of maggots: 2   # this is wrong; should be 1
+
+I guess the code is 5214
+Enter the number of bullets: 2
+Enter the number of maggots: 1
+
+I guess the code is 3514
+Enter the number of bullets: 1
+Enter the number of maggots: 2
+
+I give up. What was you code? 1234
+You say your code is 1234
+When I guessed 1496
+you replied it's 0 bullets & 2 maggots
+but in fact it's 1 bullets & 1 maggots
+```
+
 ## Method
 
 The solver's algorithm works as follows. There are 10,000 possible codes (from 0000 to 9999). The solver shuffles these and queries the code maker for the first guess on the list. The information returned is saved. From here, the solver scans down the list of guesses stopping when if finds a guess that is consistent with all the responses from the code maker, and then guesses that code. The response is saved and, if the guess is not the true code, the process continues until the correct code is found.

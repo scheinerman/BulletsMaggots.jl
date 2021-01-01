@@ -1,4 +1,4 @@
-export play_breaker
+export play_breaker, play_maker
 
 """
 `ask(prompt::String)` asks the user to enter an integer and returns that integer.
@@ -53,4 +53,43 @@ end
 function play_breaker()
     code = random_code()
     play_breaker(code)
+end
+
+
+function query_player(c::Int)
+    println("I guess the code is ", string4(c))
+    b = ask("Enter the number of bullets: ")
+    m = ask("Enter the number of maggots: ")
+    println()
+    return b,m 
+end 
+
+
+
+"""
+`play_maker()` lets the user play Bullets and Maggots as the code maker.
+"""
+function play_maker()
+    history = Dict{Int,Tuple{Int,Int}}()   # place to hold past guesses/results
+    result_server(g) = query_player(g)
+    steps = bm_solver_engine(result_server, false, history)
+
+    if steps >= 0
+        println("Solved in $steps steps")
+        return 
+    end
+
+    c = ask("I give up. What was you code? ")
+
+    println("You say your code is $(string4(c))")
+    for g in keys(history)
+        if history[g] != bm_count(c,g)
+            gstr = string4(g)
+            b,m = history[g]
+            println("When I guessed $gstr")
+            println("you replied it's $b bullets & $m maggots")
+            b,m = bm_count(c,g)
+            println("but in fact it's $b bullets & $m maggots\n")
+        end
+    end
 end

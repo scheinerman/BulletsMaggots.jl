@@ -35,22 +35,23 @@ function bm_solver(c::Int, verbose::Bool=true)::Int
         println("Trying to find secret code $(string4(c))")
     end
 
-    result_server(g) = bm_count(g,c)
-    bm_solver_engine(result_server, verbose)
+    history = Dict{Int,Tuple{Int,Int}}()   # place to hold past guesses/results
+    result_server(g::Int) = bm_count(g,c)
+    bm_solver_engine(result_server, verbose, history)
 end
 
-function bm_solver_engine(result_server::Function, verbose::Bool = true)::Int
+function bm_solver_engine(result_server::Function, verbose::Bool, history::Dict{Int,Tuple{Int,Int}})::Int
     all_codes = collect(0:9999)            # randomized list of possible answers
     shuffle!(all_codes)
 
-    history = Dict{Int,Tuple{Int,Int}}()   # place to hold past guesses/results
     steps = 0
 
     for g in all_codes  # current guess (g) code
-        cnt = result_server(g)
         if !history_check(history, g)
             continue
         end
+        cnt = result_server(g)
+
         steps += 1
         history[g] = cnt
 
@@ -69,8 +70,8 @@ function bm_solver_engine(result_server::Function, verbose::Bool = true)::Int
             if verbose
                 println("Solved! Code is $(string4(g))")
             end
-            break
+            return steps
         end
     end
-    return steps
+    return -1  # signal failure
 end
