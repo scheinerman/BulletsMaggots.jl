@@ -1,4 +1,4 @@
-export bm_count, string4, code_check
+export bm_count, string4, code_check, random_code
 
 """
 `code_check(c::Int)` checks that `c` is a valid code
@@ -82,4 +82,9 @@ function slow_bm_count(c::Int, d::Int)::Tuple{Int,Int}
     end
 
     return b, m
+end
+
+
+@inline function random_code()
+    mod(rand(Int), 10000)
 end

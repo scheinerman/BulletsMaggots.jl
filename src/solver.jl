@@ -26,16 +26,20 @@ end
 `bm_solver(c::Int, verbose::Bool=true)` playes Bullets and Maggots to try 
 to find code `c`. Returns the number of guesses. It doesn't cheat!
 """
-function bm_solver(c::Int, verbose::Bool = true)::Int
+function bm_solver(c::Int, verbose::Bool=true)::Int
     if !code_check(c)
         throw(bad_code_message(c))
         return 0
     end
-
     if verbose
         println("Trying to find secret code $(string4(c))")
     end
 
+    result_server(g) = bm_count(g,c)
+    bm_solver_engine(result_server, verbose)
+end
+
+function bm_solver_engine(result_server::Function, verbose::Bool = true)::Int
     all_codes = collect(0:9999)            # randomized list of possible answers
     shuffle!(all_codes)
 
@@ -43,7 +47,7 @@ function bm_solver(c::Int, verbose::Bool = true)::Int
     steps = 0
 
     for g in all_codes  # current guess (g) code
-        cnt = bm_count(g, c)
+        cnt = result_server(g)
         if !history_check(history, g)
             continue
         end

@@ -51,6 +51,6 @@ function play_breaker(code::Int)
 end
 
 function play_breaker()
-    code = mod(rand(Int), 10000)
+    code = random_code()
     play_breaker(code)
 end

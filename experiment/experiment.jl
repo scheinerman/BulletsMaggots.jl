@@ -1,4 +1,4 @@
-using BulletsMaggots, Statistics
+using BulletsMaggots, Statistics, ProgressMeter
 
 
 function run_exp(c::Int, reps::Int = 1000)
@@ -21,4 +21,20 @@ function run_all(reps::Int = 1000)
         run_exp(c, reps)
         println()
     end
+end
+
+
+
+function experiment(reps::Int = 1000)
+    println("Playing $reps games")
+    t = zeros(Int,reps)
+    PM = Progress(reps)
+    for i=1:reps
+        t[i] = bm_solver(random_code(),false)
+        next!(PM)
+    end 
+    println("Average steps to solve:   ", mean(t))
+    println("Median steps to solve:    ", median(t))
+    println("Standard deviation:       ", std(t))
+    println("Range in number of steps: ", minimum(t), "-", maximum(t))
 end
