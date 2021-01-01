@@ -45,7 +45,9 @@ Solved! Code is 0055
 5
 ```
 
-## Play
+## Interactive Play
+
+The user can play Bullets and Maggots either as the code breaker or the code maker.
 
 ### Play as code breaker
 
@@ -189,6 +191,19 @@ Median steps to solve:    6.0
 Standard deviation:       1.19702291701699
 Range in number of steps: 2-10
 ```
+
+The `experiment` function runs repeated tests on random codes for overall 
+performance.
+```
+julia> experiment(10000)
+Playing 10000 games
+Progress: 100%|█████████████████████████████████████████| Time: 0:00:12
+Average steps to solve:   6.1886
+Median steps to solve:    6.0
+Standard deviation:       1.190030107671951
+Range in number of steps: 2-11
+```
+
 
 ## Question
 
