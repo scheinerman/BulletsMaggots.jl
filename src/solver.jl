@@ -13,10 +13,13 @@ function history_check(history::Dict{Int,Tuple{Int,Int}}, g::Int)::Bool
     return true
 end
 
+"""
+`history_count(h)` returns the number of possible codes that 
+are consistent with the history dictionary `h`.
+"""
 function history_count(history::Dict{Int,Tuple{Int,Int}})::Int
     length([c for c in 0:9999 if history_check(history, c)])
 end
-
 
 
 """
@@ -24,7 +27,11 @@ end
 to find code `c`. Returns the number of guesses. It doesn't cheat!
 """
 function bm_solver(c::Int, verbose::Bool = true)::Int
-    code_check(c)
+    if !code_check(c)
+        throw(bad_code_message(c))
+        return 0
+    end
+
     if verbose
         println("Trying to find secret code $(string4(c))")
     end

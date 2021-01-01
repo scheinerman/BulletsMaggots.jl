@@ -1,4 +1,4 @@
-export bm_count, string4
+export bm_count, string4, code_check
 
 """
 `code_check(c::Int)` checks that `c` is a valid code
@@ -6,10 +6,15 @@ export bm_count, string4
 if valid and throws an error if not.
 """
 @inline function code_check(c::Int)::Bool
-    if c < 0 || c > 9999
-        throw(error("Code $c is invalid. Must be in the range from 0000 to 9999."))
-    end
-    return true
+    (c >= 0) && (c <= 9999)
+end
+
+"""
+`bad_code_message(c)` creates a string giving an error message 
+to be used when `c` is invalid.
+"""
+@inline function bad_code_message(c::Int)::String
+    "Code $c is invalid; must be in the range 0000 to 9999."
 end
 
 """
