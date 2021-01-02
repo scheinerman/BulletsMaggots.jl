@@ -1,5 +1,5 @@
 using Counters
-export score_guess, best_guess, filter_space, jonah_solver
+export jonah_solver
 
 """
 `score_guess(g::Int, search_space::Vector{Int}`: Given a code guess `g` and 
@@ -61,7 +61,6 @@ strategy proposed by my son.
 function jonah_solver(code::Int, verbose::Bool = true)
     ss = collect(0:9999)
     shuffle!(ss)
-
     steps = 0
 
     while true
@@ -76,16 +75,14 @@ function jonah_solver(code::Int, verbose::Bool = true)
 
         if verbose
             print("Guess $steps:\t", string4(g), "\t", bm)
-            println("\tSearch space size is ", length(ss))
+            println("\tsearch space size is now ", length(ss))
         end
-        if bm == (4,0)
+
+        if bm == (4, 0)
             if verbose
                 println("Solved! Code is $(string4(g))")
             end
-            return steps 
+            return steps
         end
     end
-
-
-
 end

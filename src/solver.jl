@@ -71,7 +71,7 @@ function bm_solver_engine(
                 string4(g),
                 "\t",
                 cnt,
-                "\t⟹\t search space size is now ",
+                "\tsearch space size is now ",
                 history_count(history),
             )
         end

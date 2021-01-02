@@ -18,7 +18,7 @@ end
 """
 `build_table()` creates a lookup table for `fast_bm_count()`
 """
-function build_table(verbose::Bool=true)
+function build_table(verbose::Bool = true)
     if !bm_flag
         global bm_flag = true
     else
@@ -35,7 +35,7 @@ function build_table(verbose::Bool=true)
             bm = slow_bm_count(a, b)
             bm_table_save(a, b, bm)
             bm_table_save(b, a, bm)
-            if verbose 
+            if verbose
                 next!(PM)
             end
         end
