@@ -29,7 +29,7 @@ to find code `c`. Returns the number of guesses. It doesn't cheat!
 * `verbose` controls printing during execution.
 * `delay` indicates how many steps we should wait before using the history; `0` means no delay
 """
-function bm_solver(c::Int, verbose::Bool = true, delay::Int=0)::Int
+function bm_solver(c::Int, verbose::Bool = true, delay::Int = 0)::Int
     if !code_check(c)
         throw(bad_code_message(c))
         return 0
@@ -47,7 +47,7 @@ function bm_solver_engine(
     result_server::Function,
     verbose::Bool,
     history::Dict{Int,Tuple{Int,Int}},
-    delay::Int=0
+    delay::Int = 0,
 )::Int
     all_codes = collect(0:9999)            # randomized list of possible answers
     shuffle!(all_codes)

@@ -18,7 +18,7 @@ end
 """
 `build_table()` creates a lookup table for `fast_bm_count()`
 """
-function build_table()
+function build_table(verbose::Bool=true)
     if !bm_flag
         global bm_flag = true
     else
@@ -27,13 +27,17 @@ function build_table()
     @info "Building lookup table"
     global bm_table = Vector{Tuple{Int,Int}}(undef, 10_000 * 10_000)
 
-    PM = Progress(50005000)
+    if verbose
+        PM = Progress(50005000)
+    end
     for a = 0:9999
         for b = a:9999
             bm = slow_bm_count(a, b)
             bm_table_save(a, b, bm)
             bm_table_save(b, a, bm)
-            next!(PM)
+            if verbose 
+                next!(PM)
+            end
         end
     end
 end
