@@ -131,7 +131,7 @@ The solver's algorithm works as follows. There are 10,000 possible codes (from 0
 ## Speeding Up
 
 The function `bm_count` is used calculate the number of bullets and maggots for a pair of code numbers. It is reasonably speedy for casual use, but it can be made much faster by first precomputing all possible values of `bm_count` and saving them in a look-up table. Invoking the function `build_table` builds the look-up table and from that point on, `bm_count` uses the table instead of computing the number of bullets and maggots at each invocation.
-```julia
+```
 julia> using BenchmarkTools
 
 julia> @btime bm_count(1212, 2132)
