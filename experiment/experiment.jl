@@ -25,16 +25,26 @@ end
 
 
 
-function experiment(reps::Int = 1000)
+function experiment(reps::Int = 1000,delay::Int=0)
     println("Playing $reps games")
     t = zeros(Int,reps)
     PM = Progress(reps)
     for i=1:reps
-        t[i] = bm_solver(random_code(),false)
+        t[i] = bm_solver(random_code(),false,delay)
         next!(PM)
     end 
+    println("History usage delay:      ", delay)
     println("Average steps to solve:   ", mean(t))
     println("Median steps to solve:    ", median(t))
     println("Standard deviation:       ", std(t))
     println("Range in number of steps: ", minimum(t), "-", maximum(t))
+end
+
+function delay_experiment(ngames=100_000,max_delay=4)
+    build_table()
+    for j=0:max_delay
+        println("Delay = $j\n")
+        experiment(ngames,j)
+        println()
+    end
 end

@@ -23,10 +23,13 @@ end
 
 
 """
-`bm_solver(c::Int, verbose::Bool=true)` playes Bullets and Maggots to try 
+`bm_solver(c::Int, verbose::Bool=true, delay::Int=0)` playes Bullets and Maggots to try 
 to find code `c`. Returns the number of guesses. It doesn't cheat!
+
+* `verbose` controls printing during execution.
+* `delay` indicates how many steps we should wait before using the history; `0` means no delay
 """
-function bm_solver(c::Int, verbose::Bool=true)::Int
+function bm_solver(c::Int, verbose::Bool = true, delay::Int=0)::Int
     if !code_check(c)
         throw(bad_code_message(c))
         return 0
@@ -36,19 +39,26 @@ function bm_solver(c::Int, verbose::Bool=true)::Int
     end
 
     history = Dict{Int,Tuple{Int,Int}}()   # place to hold past guesses/results
-    result_server(g::Int) = bm_count(g,c)
-    bm_solver_engine(result_server, verbose, history)
+    result_server(g::Int) = bm_count(g, c)
+    bm_solver_engine(result_server, verbose, history, delay)
 end
 
-function bm_solver_engine(result_server::Function, verbose::Bool, history::Dict{Int,Tuple{Int,Int}})::Int
+function bm_solver_engine(
+    result_server::Function,
+    verbose::Bool,
+    history::Dict{Int,Tuple{Int,Int}},
+    delay::Int=0
+)::Int
     all_codes = collect(0:9999)            # randomized list of possible answers
     shuffle!(all_codes)
 
     steps = 0
 
     for g in all_codes  # current guess (g) code
-        if !history_check(history, g)
-            continue
+        if steps >= delay
+            if !history_check(history, g)
+                continue
+            end
         end
         cnt = result_server(g)
 

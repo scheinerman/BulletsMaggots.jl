@@ -61,8 +61,8 @@ function query_player(c::Int)
     b = ask("Enter the number of bullets: ")
     m = ask("Enter the number of maggots: ")
     println()
-    return b,m 
-end 
+    return b, m
+end
 
 
 
@@ -76,19 +76,19 @@ function play_maker()
 
     if steps >= 0
         println("Solved in $steps steps")
-        return 
+        return
     end
 
     c = ask("I give up. What was you code? ")
 
     println("You say your code is $(string4(c))")
     for g in keys(history)
-        if history[g] != bm_count(c,g)
+        if history[g] != bm_count(c, g)
             gstr = string4(g)
-            b,m = history[g]
+            b, m = history[g]
             println("When I guessed $gstr")
             println("you replied it's $b bullets & $m maggots")
-            b,m = bm_count(c,g)
+            b, m = bm_count(c, g)
             println("but in fact it's $b bullets & $m maggots\n")
         end
     end
