@@ -1,7 +1,7 @@
 using BulletsMaggots, ProgressMeter, Statistics
 
 build_table() 
-function experiment(reps::Int = 1000,delay::Int=0)
+function jonah_experiment(reps::Int = 1000,delay::Int=0)
     println("Playing $reps games")
     t = zeros(Int,reps)
     PM = Progress(reps)
