@@ -29,7 +29,7 @@ to find code `c`. Returns the number of guesses. It doesn't cheat!
 * `verbose` controls printing during execution.
 * `delay` indicates how many steps we should wait before using the history; `0` means no delay
 """
-function bm_solver(c::Int, verbose::Bool = true, delay::Int = 0)::Int
+function bm_solver(c::Int, verbose::Bool = true, first_guess = guess_any)::Int
     if !code_check(c)
         throw(bad_code_message(c))
         return 0
@@ -40,26 +40,51 @@ function bm_solver(c::Int, verbose::Bool = true, delay::Int = 0)::Int
 
     history = Dict{Int,Tuple{Int,Int}}()   # place to hold past guesses/results
     result_server(g::Int) = bm_count(g, c)
-    bm_solver_engine(result_server, verbose, history, delay)
+    bm_solver_engine(result_server, verbose, history, first_guess)
 end
 
 function bm_solver_engine(
     result_server::Function,
     verbose::Bool,
     history::Dict{Int,Tuple{Int,Int}},
-    delay::Int = 0,
+    first_guess::Function = guess_any,
 )::Int
     all_codes = collect(0:9999)            # randomized list of possible answers
     shuffle!(all_codes)
 
     steps = 0
 
-    for g in all_codes  # current guess (g) code
-        if steps >= delay
-            if !history_check(history, g)
-                continue
-            end
+
+    g = first_guess()
+    cnt = result_server(g)
+    history[g] = cnt
+    steps += 1
+    if verbose
+        println(
+            "Guess $steps:\t",
+            string4(g),
+            "\t",
+            cnt,
+            "\tsearch space size is now ",
+            history_count(history),
+        )
+    end
+
+
+    if cnt == (4, 0)
+        if verbose
+            println("Solved! Code is $(string4(g))")
         end
+        return steps
+    end
+
+    for g in all_codes  # current guess (g) code
+
+        if !history_check(history, g)
+            continue
+        end
+
+
         cnt = result_server(g)
 
         steps += 1

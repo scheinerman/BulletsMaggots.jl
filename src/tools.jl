@@ -88,3 +88,50 @@ end
 @inline function random_code()
     mod(rand(Int), 10000)
 end
+
+
+# various first-guess servers
+
+vec2int(v::Vector{Int}) = 1000 * v[1] + 100 * v[2] + 10 * v[3] + v[4]
+
+function rand_digit(exclude::Vector{Int} = Int[])
+    d = rand(0:9)
+    while in(d, exclude)
+        d = rand(0:9)
+    end
+    return d
+end
+
+function guess_distinct()
+    v = -ones(Int, 4)
+    for j = 1:4
+        v[j] = rand_digit(v)
+    end
+    return vec2int(v)
+end
+
+function guess_one_pair()
+    v = -ones(Int, 4)
+    v[1] = rand_digit()
+    v[2] = v[1]
+    for i = 3:4
+        v[i] = rand_digit(v)
+    end
+    shuffle!(v)
+    return vec2int(v)
+end
+
+function guess_two_pairs()
+    v = -ones(Int, 4)
+    v[1] = rand_digit()
+    v[2] = v[1]
+    v[3] = rand_digit(v)
+    v[4] = v[3]
+    shuffle!(v)
+    return vec2int(v)
+end
+
+guess_any() = rand(0:9999)
+
+
+export guess_one_pair, guess_two_pairs, guess_any, guess_distinct
