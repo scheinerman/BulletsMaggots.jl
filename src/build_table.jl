@@ -2,7 +2,7 @@ export build_table
 
 
 # bm_table = Matrix{Tuple{Int,Int}}(undef, 2, 2)
-bm_table = Vector{Tuple{Int,Int}}(undef, 2)
+bm_table = Vector{Tuple{Int8,Int8}}(undef, 2)
 
 bm_flag = false
 
@@ -25,7 +25,7 @@ function build_table(verbose::Bool = true)
         return
     end
     @info "Building lookup table"
-    global bm_table = Vector{Tuple{Int,Int}}(undef, 10_000 * 10_000)
+    global bm_table = Vector{Tuple{Int8,Int8}}(undef, 10_000 * 10_000)
 
     if verbose
         PM = Progress(50005000)
