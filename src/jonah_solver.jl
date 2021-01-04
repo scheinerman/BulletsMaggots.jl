@@ -18,8 +18,8 @@ function score_guess(g::Int, search_space::Vector{Int})
         count[bm] += 1
     end
 
-    # println(count)
-    return maximum(values(count))
+    return sum(t*t for t in values(count))
+    # return maximum(values(count))
 end
 
 """
