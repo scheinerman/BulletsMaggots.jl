@@ -1,5 +1,5 @@
 using Counters
-export jonah_solver
+export jonah_solver  #, score_guess, best_guess, filter_space
 
 """
 `score_guess(g::Int, search_space::Vector{Int}`: Given a code guess `g` and 
@@ -31,7 +31,7 @@ function best_guess(search_space::Vector{Int})
         return search_space[1]
     end
 
-    best_score = length(search_space)
+    best_score = length(search_space)^2
     best_g = search_space[1]
 
     for g in search_space
