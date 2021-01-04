@@ -25,7 +25,7 @@ end
 
 
 
-function experiment(reps::Int = 1000, first_guess::Function=guess_any)
+function experiment(reps::Int = 1000, first_guess::Function = guess_any)
     println("Playing $reps games")
     t = zeros(Int, reps)
     PM = Progress(reps)
@@ -41,27 +41,27 @@ end
 
 
 
-function first_move_experiment(reps::Int=1000)
+function first_move_experiment(reps::Int = 1000)
 
     sep = "-"^60
 
     println("Any first guess")
-    experiment(reps,guess_any)
+    experiment(reps, guess_any)
 
     println(sep)
-    
+
     println("All distinct")
-    experiment(reps,guess_distinct)
+    experiment(reps, guess_distinct)
 
     println(sep)
 
     println("One pair")
-    experiment(reps,guess_one_pair)
+    experiment(reps, guess_one_pair)
 
     println(sep)
 
     println("Two pairs")
-    experiment(reps,guess_two_pairs)
-    
+    experiment(reps, guess_two_pairs)
+
     println(sep)
 end
