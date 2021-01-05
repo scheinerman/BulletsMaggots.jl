@@ -26,7 +26,7 @@ end
 `best_guess(search_space::Vector{Int}` chooses a code from `search_space`
 that minimizes the score returned by `score_guess`.
 """
-function best_guess(search_space::Vector{Int}, full_list::Bool=false)
+function best_guess(search_space::Vector{Int}, full_list::Bool = false)
     if length(search_space) == 1
         return search_space[1]
     end
@@ -34,15 +34,15 @@ function best_guess(search_space::Vector{Int}, full_list::Bool=false)
     best_score = length(search_space)^2
     best_g = search_space[1]
 
-    candidates = search_space 
+    candidates = search_space
     if full_list
         candidates = collect(0:9999)
-    end 
+    end
     shuffle!(candidates)
 
     ## DEBUG ##
     # println("\tConsidering $(length(candidates)) candidates")
-     
+
 
     for g in candidates
         score = score_guess(g, search_space)
@@ -78,7 +78,7 @@ end
 `jonah_solver(code::Int, verbose::Bool=true, full)` implements another solving 
 strategy proposed by my son.
 """
-function jonah_solver(code::Int, verbose::Bool = true, full_list::Bool=false)
+function jonah_solver(code::Int, verbose::Bool = true, full_list::Bool = false)
     ss = collect(0:9999)
     shuffle!(ss)
     steps = 0
@@ -87,7 +87,7 @@ function jonah_solver(code::Int, verbose::Bool = true, full_list::Bool=false)
         if steps == 0
             g = random_code()
         else
-            g = best_guess(ss,full_list)
+            g = best_guess(ss, full_list)
         end
         steps += 1
         bm = bm_count(g, code)
