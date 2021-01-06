@@ -1,5 +1,5 @@
 include("experiment_parallel.jl")
-n = 100
+n = 10_000
 
-jonah_parallel(n,false)
-jonah_parallel(n,true)
+println(jonah_parallel(n,false))
+println(jonah_parallel(n,true))
