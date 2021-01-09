@@ -75,7 +75,7 @@ end
 
 
 """
-`jonah_solver(code::Int, verbose::Bool=true, full)` implements another solving 
+`jonah_solver(code::Int, verbose::Bool=true, full_list_limit=0)` implements another solving 
 strategy proposed by my son.
 """
 function jonah_solver(code::Int, verbose::Bool = true, full_list_limit::Int = 0)

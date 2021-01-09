@@ -6,7 +6,7 @@ function jonah_experiment(reps::Int = 1000)
     t = zeros(Int, reps)
     PM = Progress(reps)
     for i = 1:reps
-        t[i] = jonah_solver(random_code(), 0)
+        t[i] = jonah_solver(random_code(), false, 10)
         next!(PM)
     end
     println("Average steps to solve:   ", mean(t))
