@@ -1,5 +1,5 @@
 using Counters
-export jonah_solver  #, score_guess, best_guess, filter_space
+export jonah_solver, score_guess, best_guess, filter_space
 
 """
 `score_guess(g::Int, search_space::Vector{Int}`: Given a code guess `g` and 
@@ -78,7 +78,7 @@ end
 `jonah_solver(code::Int, verbose::Bool=true, full)` implements another solving 
 strategy proposed by my son.
 """
-function jonah_solver(code::Int, verbose::Bool = true, full_list::Bool = false)
+function jonah_solver(code::Int, verbose::Bool = true, full_list_limit::Int = 0)
     ss = collect(0:9999)
     shuffle!(ss)
     steps = 0
@@ -86,8 +86,10 @@ function jonah_solver(code::Int, verbose::Bool = true, full_list::Bool = false)
     while true
         if steps == 0
             g = random_code()
+        elseif steps <= full_list_limit
+            g = best_guess(ss, true)
         else
-            g = best_guess(ss, full_list)
+            g = best_guess(ss, false)
         end
         steps += 1
         bm = bm_count(g, code)

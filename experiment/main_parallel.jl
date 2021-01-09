@@ -1,5 +1,11 @@
 include("experiment_parallel.jl")
-n = 10_000
 
-println(jonah_parallel(n,false))
-println(jonah_parallel(n,true))
+function run(n::Int = 20)
+    for k = 0:4
+        println()
+        println("Running: jonah_parallel($n,$k)")
+        println("Average turns per game = ", jonah_parallel(n, k))
+    end
+end
+
+@time run()
